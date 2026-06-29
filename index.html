@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spred positivitet</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Georgia, serif;
+        background: #fffdf7;
+        color: #2c2c2a;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero {
+        width: 100%;
+        padding: 80px 24px 64px;
+        text-align: center;
+        background: #fff8e8;
+        border-bottom: 1px solid #f0e8cc;
+      }
+
+      .sun {
+        font-size: 52px;
+        margin-bottom: 24px;
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: clamp(28px, 5vw, 48px);
+        font-weight: 400;
+        color: #2c2c2a;
+        line-height: 1.2;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+      }
+
+      .hero p {
+        font-size: 18px;
+        color: #888780;
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      .quote-section {
+        padding: 64px 24px;
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .quote {
+        font-size: clamp(22px, 3.5vw, 32px);
+        font-style: italic;
+        color: #2c2c2a;
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+
+      .quote-author {
+        font-size: 15px;
+        color: #888780;
+      }
+
+      .divider {
+        width: 48px;
+        height: 2px;
+        background: #f0c040;
+        margin: 48px auto;
+        border-radius: 2px;
+      }
+
+      .ideas-section {
+        width: 100%;
+        padding: 0 24px 64px;
+      }
+
+      .ideas-inner {
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .ideas-title {
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #888780;
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .ideas-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+      }
+
+      .idea-card {
+        background: #fff8e8;
+        border: 1px solid #f0e8cc;
+        border-radius: 12px;
+        padding: 24px 20px;
+        text-align: center;
+      }
+
+      .idea-icon {
+        font-size: 28px;
+        display: block;
+        margin-bottom: 12px;
+      }
+
+      .idea-title {
+        font-size: 15px;
+        font-weight: 500;
+        color: #2c2c2a;
+        margin-bottom: 6px;
+      }
+
+      .idea-text {
+        font-size: 13px;
+        color: #888780;
+        line-height: 1.6;
+      }
+
+      .cta-section {
+        width: 100%;
+        background: #2c2c2a;
+        padding: 64px 24px;
+        text-align: center;
+      }
+
+      .cta-section h2 {
+        font-size: clamp(20px, 3vw, 28px);
+        font-weight: 400;
+        color: #fffdf7;
+        margin-bottom: 12px;
+      }
+
+      .cta-section p {
+        font-size: 16px;
+        color: #888780;
+        margin-bottom: 32px;
+      }
+
+      .cta-btn {
+        display: inline-block;
+        background: #f0c040;
+        color: #2c2c2a;
+        font-size: 15px;
+        font-weight: 500;
+        padding: 14px 32px;
+        border-radius: 40px;
+        cursor: pointer;
+        border: none;
+        transition: background 0.2s;
+      }
+
+      .cta-btn:hover {
+        background: #e8b530;
+      }
+
+      footer {
+        padding: 24px;
+        text-align: center;
+        font-size: 13px;
+        color: #b4b2a9;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <span class="sun">☀️</span>
+      <h1>Verden bliver lysere,<br />én handling ad gangen</h1>
+      <p>
+        Det behøver ikke at være stort. Et smil, en venlig besked, et oprigtigt
+        tak — det rykker noget.
+      </p>
+    </section>
+
+    <section class="quote-section">
+      <p class="quote">
+        "Du kan ikke altid kontrollere, hvad der sker med dig, men du kan altid
+        kontrollere, hvad du sender ud i verden."
+      </p>
+      <span class="quote-author">— ukendt</span>
+      <div class="divider"></div>
+      <p class="ideas-title">Tre måder at starte i dag</p>
+    </section>
+
+    <section class="ideas-section">
+      <div class="ideas-inner">
+        <div class="ideas-grid">
+          <div class="idea-card">
+            <span class="idea-icon">✉️</span>
+            <p class="idea-title">Send en besked</p>
+            <p class="idea-text">
+              Skriv til én person, du har tænkt på. Det tager to minutter og
+              betyder verden for dem.
+            </p>
+          </div>
+          <div class="idea-card">
+            <span class="idea-icon">👀</span>
+            <p class="idea-title">Læg mærke til folk</p>
+            <p class="idea-text">
+              Giv et oprigtigt kompliment til en fremmed eller en kollega. Vær
+              specifik — det er det, der virker.
+            </p>
+          </div>
+          <div class="idea-card">
+            <span class="idea-icon">🌱</span>
+            <p class="idea-title">Gør det lille</p>
+            <p class="idea-text">
+              Hold døren. Tak kassemedarbejderen. Lad bilen komme ud. Småting
+              skaber store ringe.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Hvem kan du gøre glad i dag?</h2>
+      <p>Positivitet er smitsom — start bølgen.</p>
+      <button class="cta-btn" onclick="alert('Tag det første skridt. 🌟')">
+        Jeg er klar
+      </button>
+    </section>
+
+    <footer>Spredt med kærlighed ♡</footer>
+  </body>
+</html>
