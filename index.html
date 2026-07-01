@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spred positivitet</title>
+    <style>
+      /* ===== Skrifttyper =====
+         VAG Rounded Next og SUNBORN er ikke standard web-fonte og skal
+         hostes selv (de findes ikke på Google Fonts). Læg .woff2-filerne
+         i en "fonts"-mappe i dit repo og ret stierne nedenfor.
+         Indtil filerne er på plads, falder brødtekst tilbage til en
+         rundet grotesk-font, og overskrifter falder tilbage til Georgia. */
+
+      @font-face {
+        font-family: "VAG Rounded Next";
+        src: url("fonts/VAGRoundedNext-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "VAG Rounded Next";
+        src: url("fonts/VAGRoundedNext-Bold.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "SUNBORN";
+        src: url("fonts/Sunborn-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "VAG Rounded Next",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: #ece6dd;
+        color: #2c2c2a;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1,
+      h2,
+      h3,
+      .page-title,
+      .ideas-title,
+      .idea-title,
+      .flyer-title {
+        font-family: "SUNBORN", Georgia, serif;
+      }
+
+      .hero {
+        width: 100%;
+        padding: 80px 24px 64px;
+        text-align: center;
+        background: #fff8e8;
+        border-bottom: 1px solid #f0e8cc;
+      }
+
+      .sun {
+        font-size: 52px;
+        margin-bottom: 24px;
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: clamp(28px, 5vw, 48px);
+        font-weight: 400;
+        color: #2c2c2a;
+        line-height: 1.2;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+      }
+
+      .hero p {
+        font-size: 18px;
+        color: #888780;
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      .page-title {
+        font-size: clamp(30px, 5vw, 48px);
+        font-weight: 400;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+        color: #2c2c2a;
+        margin-bottom: 20px;
+      }
+      .page-subtitle {
+        font-size: 18px;
+        color: #888780;
+        max-width: 650px;
+        margin: 0 auto 48px;
+        line-height: 1.7;
+      }
+
+      .quote-box {
+        background: #1ab46a;
+        border: 1px solid #168f56;
+        border-radius: 12px;
+        padding: 32px 40px;
+        max-width: 640px;
+        margin: 40px auto 0;
+      }
+
+      .quote {
+        font-style: italic;
+        font-size: 17px;
+        line-height: 1.7;
+        color: #ffffff;
+        opacity: 0.85;
+        margin-bottom: 12px;
+      }
+
+      .quote-author {
+        font-size: 15px;
+        color: #ffffff;
+        text-align: right;
+      }
+
+      .quote-author strong {
+        font-weight: 700;
+      }
+      .quote-section {
+        padding: 10px 24px;
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .divider {
+        width: 48px;
+        height: 2px;
+        background: #f0c040;
+        margin: 48px auto;
+        border-radius: 2px;
+      }
+
+      .ideas-section {
+        width: 100%;
+        padding: 0 24px 64px;
+      }
+
+      .ideas-inner {
+        max-width: 980px;
+        margin: 0 auto;
+      }
+
+      .ideas-title {
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #888780;
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .ideas-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .idea-card {
+        background: #fff8e8;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 24px 20px;
+        text-align: center;
+      }
+
+      /* Mønster over 8 kort: Grøn, Beige, Hvid, Gul - gentaget */
+      .idea-card:nth-child(4n + 1) {
+        background: #1ab46a;
+        border-color: #168f56;
+      }
+      .idea-card:nth-child(4n + 1) .idea-title {
+        color: #ffffff;
+      }
+      .idea-card:nth-child(4n + 1) .idea-text {
+        color: #ffffff;
+        opacity: 0.85;
+      }
+
+      .idea-card:nth-child(4n + 2) {
+        background: #fcdb84;
+        border-color: #f0c040;
+      }
+
+      .idea-card:nth-child(4n + 3) {
+        background: #ffffff;
+        border-color: #e9e6df;
+      }
+
+      .idea-card:nth-child(4n + 4) {
+        background: #fcdb84;
+        border-color: #f0c040;
+      }
+
+      .idea-icon {
+        font-size: 28px;
+        display: block;
+        margin-bottom: 12px;
+      }
+
+      .idea-title {
+        font-size: 15px;
+        font-weight: 500;
+        color: #2c2c2a;
+        margin-bottom: 8px;
+      }
+
+      .idea-text {
+        font-size: 13px;
+        color: #888780;
+        line-height: 1.6;
+      }
+
+      .postkort-image {
+        display: block;
+        width: 100%;
+        max-width: 220px;
+        margin: 16px auto 0;
+        border-radius: 8px;
+      }
+
+      .cta-section {
+        width: 100%;
+        background: #1ab46a;
+        padding: 64px 24px;
+        text-align: center;
+      }
+
+      .cta-section h2 {
+        font-size: clamp(20px, 3vw, 28px);
+        font-weight: 400;
+        color: #ffffff;
+        margin-bottom: 12px;
+      }
+
+      .cta-section p {
+        font-size: 16px;
+        color: #ffffff;
+        margin-bottom: 32px;
+      }
+
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #ffffff;
+        color: #1ab46a;
+        font-size: 17px;
+        font-weight: 600;
+        padding: 18px 40px;
+        border-radius: 40px;
+        cursor: pointer;
+        border: none;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+        font-family: "VAG Rounded Next", Georgia, serif;
+      }
+
+      .cta-btn:hover {
+        background: #fcdb84;
+        transform: scale(1.03);
+      }
+
+      .cta-btn:active {
+        transform: scale(0.98);
+      }
+
+      .share-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 100;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .share-overlay.open {
+        display: flex;
+      }
+
+      .share-box {
+        background: #fffdf7;
+        border-radius: 16px;
+        padding: 40px 32px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .share-box h3 {
+        font-size: 22px;
+        font-weight: 400;
+        color: #ffdc69;
+        margin-bottom: 8px;
+      }
+
+      .share-box p {
+        font-size: 15px;
+        color: #888780;
+        margin-bottom: 28px;
+        line-height: 1.6;
+      }
+
+      .share-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .share-link-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 20px;
+        border-radius: 40px;
+        font-size: 15px;
+        font-family: "VAG Rounded Next", Georgia, serif;
+        cursor: pointer;
+        border: none;
+        font-weight: 500;
+        text-decoration: none;
+        transition: opacity 0.2s;
+      }
+
+      .share-link-btn:hover {
+        opacity: 0.85;
+      }
+
+      .btn-copy {
+        background: #f0c040;
+        color: #2c2c2a;
+      }
+
+      .btn-messenger {
+        background: #0084ff;
+        color: #fff;
+      }
+
+      .btn-sms {
+        background: #4caf82;
+        color: #fff;
+      }
+
+      .btn-close {
+        margin-top: 16px;
+        background: none;
+        border: none;
+        font-size: 14px;
+        color: #888780;
+        cursor: pointer;
+        font-family: "VAG Rounded Next", Georgia, serif;
+      }
+
+      .copy-confirm {
+        display: none;
+        font-size: 13px;
+        color: #4caf82;
+        margin-top: 8px;
+      }
+
+      .about-section {
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 64px 24px;
+        text-align: center;
+      }
+
+      .about-section h1 {
+        font-size: 25px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #2c2c2a;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .about-section p {
+        font-size: 15px;
+        color: #2c2c2a;
+        line-height: 1.8;
+        text-align: left;
+      }
+
+      .about-section a {
+        color: inherit;
+        font-weight: 600;
+      }
+
+      footer {
+        padding: 24px;
+        text-align: center;
+        font-size: 13px;
+        color: #b4b2a9;
+      }
+
+      /* ===== Pusterum: CTA-knap + modal med billede ===== */
+
+      .idea-card.has-cta {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .pusterum-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+        align-self: center;
+        background: #fffdf7;
+        color: #1ab46a;
+        font-family: "VAG Rounded Next", Georgia, serif;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 10px 22px;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+        box-shadow: 0 3px 8px rgba(44, 44, 42, 0.12);
+      }
+
+      .pusterum-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(44, 44, 42, 0.18);
+      }
+
+      .pusterum-cta:active {
+        transform: translateY(0);
+      }
+
+      .pusterum-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(20, 30, 20, 0.72);
+        z-index: 300;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .pusterum-overlay.open {
+        display: flex;
+      }
+
+      .pusterum-modal {
+        background: #fffdf7;
+        border-radius: 20px;
+        max-width: 640px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+      }
+
+      .pusterum-modal-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.92);
+        color: #2c2c2a;
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 2;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .pusterum-modal-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+        border-radius: 20px 20px 0 0;
+      }
+
+      .pusterum-modal-body {
+        padding: 32px 32px 36px;
+      }
+
+      .pusterum-eyebrow {
+        display: inline-block;
+        background: #1ab46a;
+        color: #fff;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding: 6px 16px;
+        border-radius: 40px;
+        margin-bottom: 16px;
+      }
+
+      .pusterum-modal-body h3 {
+        font-family: "SUNBORN", Georgia, serif;
+        font-size: 24px;
+        font-weight: 400;
+        color: #2c2c2a;
+        margin-bottom: 14px;
+        line-height: 1.3;
+      }
+
+      .pusterum-modal-body p {
+        font-size: 14.5px;
+        line-height: 1.75;
+        color: #4a4a46;
+        margin-bottom: 14px;
+      }
+
+      .pusterum-modal-body ul {
+        list-style: none;
+        margin-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .pusterum-modal-body ul li {
+        font-size: 13.5px;
+        line-height: 1.6;
+        color: #4a4a46;
+        display: flex;
+        gap: 10px;
+      }
+
+      .pusterum-modal-body ul li::before {
+        content: "✓";
+        color: #1ab46a;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 480px) {
+        .pusterum-modal-image {
+          height: 220px;
+        }
+        .pusterum-modal-body {
+          padding: 24px 20px 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="quote-section">
+      <h1 class="page-title">SMÅ TILTAG, <br />KÆMPE VÆRDI</h1>
+      <p class="page-subtitle">
+        Lad os sammen bidrage til sunde og forebyggende arbejdsmiljøer!
+      </p>
+
+      <div class="quote-box">
+        <p class="quote">
+          "Mikro-øjeblikke skaber håb. At lige der hvor alting ser ud til at gå
+          af helvedes til, og man kan ikke selv overskue noget som helst, så
+          kommer der et andet menneske. En hjælper. Og er der noget, der skaber
+          håb, så er det at blive hjulpet. Oplever man det bare én gang i sit
+          liv, så kan man holde til meget som menneske."
+        </p>
+        <p class="quote-author">- <strong>Dorthe Birkmose</strong></p>
+      </div>
+
+      <div class="divider"></div>
+      <p class="ideas-title">SIMPLE MÅDER AT STARTE I DAG</p>
+    </section>
+
+    <section class="ideas-section">
+      <div class="ideas-inner">
+        <div class="ideas-grid">
+          <div class="idea-card">
+            <span class="idea-icon">💬</span>
+            <p class="idea-title">
+              <strong>GI' FOR POKKER DET KOMPLIMENT</strong>
+            </p>
+            <p class="idea-text">
+              Giv det kompliment, du har tænkt på i dagevis. Det betyder mere,
+              end du tror - og din kollega kan jo ikke læse dine tanker.
+            </p>
+          </div>
+
+          <div class="idea-card">
+            <span class="idea-icon">🚰</span>
+            <p class="idea-title"><strong>EN KOP MED OMSORG</strong></p>
+            <p class="idea-text">
+              Når du alligevel rejser dig for at hente kaffe eller vand, så snup
+              en kop med til din kollega. At få sat en kop foran sig uden at
+              have bedt om det, føles som ren omsorg.
+            </p>
+          </div>
+
+          <div class="idea-card">
+            <span class="idea-icon">👏🏼</span>
+            <p class="idea-title"><strong>DEN GUIDEDE HIGH-FIVE</strong></p>
+            <p class="idea-text">
+              Drop den klassiske "Hvordan går det?", som ofte udløser et
+              automatisk "Fint", og brug mikro-spørgsmålet: "Hvad har været det
+              bedste ved din dag indtil videre?" Det tvinger hjernen over i et
+              positivt gear på 5 sekunder. Det virker - slå det op!
+            </p>
+          </div>
+
+          <div class="idea-card">
+            <span class="idea-icon">♻️</span>
+            <p class="idea-title"><strong>EN RAR GESTUS</strong></p>
+            <p class="idea-text">
+              Træk stolen ud for en anden, tag en ekstra gaffel med til frokost,
+              eller gå ud med nabostuens skraldespand. Små gestusser skaber
+              store ringe i vandet.
+            </p>
+          </div>
+
+          <div class="idea-card">
+            <span class="idea-icon">🤗</span>
+            <p class="idea-title"><strong>SMÅ VISUELLE KRAM</strong></p>
+            <p class="idea-text">
+              Snup en lille post-it og skriv: "Du gør det godt" eller "Vi er
+              glade for, at du er her!". Sæt den på kaffemaskinen, ved spejlet
+              på toilettet eller på indersiden af en skabslåge.
+            </p>
+          </div>
+
+          <div class="idea-card">
+            <span class="idea-icon">😁</span>
+            <p class="idea-title"><strong>SMIL</strong></p>
+            <p class="idea-text">
+              Smil smitter. Vi ved aldrig hvad der er på spil for folk, og
+              derfor kan et smil fra en kollega eller en ven gøre underværker
+              for vedkommendes dag.
+            </p>
+          </div>
+
+          <div class="idea-card">
+            <span class="idea-icon">💌</span>
+            <p class="idea-title"><strong>SIG DET MED ET POSTKORT</strong></p>
+            <p class="idea-text">
+              Små ord skaber en kæmpe forskel. Gør det nemt håndgribeligt at
+              sprede arbejdsglæde. <br />
+              <strong>1. Sæt rammen:</strong> Placer de færdiglavede postkort et
+              fast og synligt sted. <br />
+              <strong>2. Spred værdien:</strong> Udfyld løbende et kort til en
+              kollega, der har gjort en forskel, og giv det videre. <br />
+              Det er personligt, det er nemt, og det spreder øjeblikkelig glæde.
+              <br />
+              Download gratis 10 skabeloner
+              <a href="Postkort til print.pdf" download
+                ><strong>her.</strong></a
+              >
+            </p>
+            <img
+              class="postkort-image"
+              src="images/postkort.png"
+              alt="Et udvalg af farverige postkort med opmuntrende budskaber, spredt ud over hinanden"
+            />
+          </div>
+
+          <div class="idea-card has-cta">
+            <span class="idea-icon">🎧</span>
+            <p class="idea-title">
+              <strong>SKAB ET PUSTERUM TIL DOG OG DINE KOLLEGAER</strong>
+            </p>
+            <p class="idea-text">
+              Et sundt arbejdsmiljø kræver plads til at lade op. Med et pusterum
+              skaber i en fysisk ramme for en mikrohandling, der gør en kæmpe
+              forskel i en travl hverdag. <br />
+              <strong>1. Find pladsen: </strong> Indret et hjørne, en rolig krog
+              eller et depotrum
+              <br />
+              <strong>2. Skærm sanserne: </strong> Skru helt ned for lys, støj
+              og indtryk<br />
+              <strong>3. Skab komfort: </strong> Placer en god stol i rummet, og
+              suppler med støjdæmpende høretelefoner og nogle fidget-toys.
+              <br />
+              Reglerne er enkle: Tag 5 minutters uforsturret nulstilling for
+              krop og sind.
+            </p>
+            <button
+              class="pusterum-cta"
+              type="button"
+              onclick="
+                document.getElementById('pusterumOverlay').classList.add('open')
+              "
+            >
+              Se pusterum her
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Posivitet er smitsom - start bølgen</h2>
+      <button
+        class="cta-btn"
+        onclick="document.getElementById('shareOverlay').classList.add('open')"
+      >
+        Spred budskabet ☀️
+      </button>
+    </section>
+
+    <div class="share-overlay" id="shareOverlay">
+      <div class="share-box">
+        <h3>Send det videre 🌟</h3>
+        <p>Del siden med én person, der trænger til lidt positivitet i dag.</p>
+        <div class="share-buttons">
+          <button class="share-link-btn btn-copy" onclick="copyLink()">
+            📋 Kopiér link
+          </button>
+          <p class="copy-confirm" id="copyConfirm">✓ Link kopieret!</p>
+          
+            class="share-link-btn btn-messenger"
+            href="fb-messenger://share?link=https://therealDoxi.github.io/Jas-Ems/"
+            target="_blank"
+            >💬 Del via Messenger</a
+          >
+          
+            class="share-link-btn btn-sms"
+            href="sms:?body=Hej!%20Jeg%20tænkte%20på%20dig%20og%20ville%20dele%20denne%20side%20med%20dig%20%F0%9F%8C%9F%20https://therealDoxi.github.io/Jas-Ems/"
+            >📱 Send som SMS</a
+          >
+        </div>
+        <button
+          class="btn-close"
+          onclick="
+            document.getElementById('shareOverlay').classList.remove('open')
+          "
+        >
+          Luk
+        </button>
+      </div>
+    </div>
+
+    <section class="about-section">
+      <h1>Om os</h1>
+      <p>
+        Vi hedder Emma og Jasmin – og vi står bag
+        <strong>SMÅ TILTAG, KÆMPE VÆRDI.</strong> Vi er to pædagogstuderende fra
+        Campus Aarhus C, som brænder for at skabe mærkbare forandringer gennem
+        medmenneskelige
+        <strong>mikrohandlinger.</strong>
+        <br /><br />
+        <em
+          >"Problemet med mistrivsel er stort og komplekst – men behøver
+          løsningen altid at være det?"</em
+        >
+        <br /><br />
+        <strong>Det tror vi ikke på.</strong> I en hverdag, hvor systemer og
+        rammer ofte kan virke uoverskuelige, glemmer vi til tider det vigtigste:
+        det nære relationelle arbejde.
+        <strong
+          >Vi mener, at vejen til trivsel findes i de små, bevidste
+          handlinger.</strong
+        >
+        <br /><br />
+        Et ekstra øjebliks opmærksomhed, et anerkendende blik eller et trygt rum
+        skabt i øjenhøjde kan gøre hele forskellen for det enkelte menneske.
+        <br /><br />
+        Hvad vil vi? Vi ønsker at inspirere til, hvordan vi i praksis kan række
+        ud og flytte bjerge med ganske små greb. Vi vil gøre det komplekse
+        håndgribeligt og bringe det pædagogiske nærvær helt i front.
+        <strong>Fordi selv de mindste tiltag kan skabe en kæmpe værdi.</strong>
+        <br /><br />
+        Kontakt os her:
+        <a href="mailto:EmmaJasmin2023@gmail.com">EmmaJasmin2023@gmail.com</a>
+      </p>
+    </section>
+
+    <div class="pusterum-overlay" id="pusterumOverlay">
+      <div class="pusterum-modal">
+        <button
+          class="pusterum-modal-close"
+          aria-label="Luk"
+          onclick="
+            document.getElementById('pusterumOverlay').classList.remove('open')
+          "
+        >
+          ✕
+        </button>
+        <img
+          class="pusterum-modal-image"
+          src="images/pusterum.jpg"
+          alt="Et indrettet pusterum med planter, stearinlys, blid belysning og en person, der sidder afslappet med høretelefoner på"
+        />
+        <div class="pusterum-modal-body">
+          <span class="pusterum-eyebrow">Sådan kan det se ud</span>
+          <h3>Et pusterum, der faktisk virker</h3>
+          <p>
+            Det ideelle pusterum er ikke stort eller dyrt - det er stille, varmt
+            og skærmet fra resten af hverdagen. Blid belysning, grønne planter
+            og bløde tekstiler signalerer med det samme til krop og hjerne, at
+            her må man slappe af.
+          </p>
+          <p>
+            Et par stearinlys, en behagelig stol eller et tæppe at putte sig i,
+            og gerne et par støjdæmpende høretelefoner, gør det nemt for
+            kollegaen at falde ned i ro og samle sig selv - også selv om det kun
+            er 5 minutter.
+          </p>
+          <ul>
+            <li>Dæmpet, varmt lys frem for skarpt neonlys</li>
+            <li>Planter og naturlige materialer skaber ro</li>
+            <li>Én god stol eller siddesæk - ikke et helt møblement</li>
+            <li>Høretelefoner eller ørepropper til at skærme for støj</li>
+            <li>Et lille skilt eller postkort med en varm hilsen på væggen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>Spredt med omsorg ♡</footer>
+
+    <script>
+      function copyLink() {
+        navigator.clipboard
+          .writeText("https://therealDoxi.github.io/Jas-Ems/")
+          .then(() => {
+            document.getElementById("copyConfirm").style.display = "block";
+            setTimeout(() => {
+              document.getElementById("copyConfirm").style.display = "none";
+            }, 2500);
+          });
+      }
+
+      // ===== Pusterum-modal =====
+      const pusterumOverlay = document.getElementById("pusterumOverlay");
+      pusterumOverlay.addEventListener("click", (e) => {
+        if (e.target === pusterumOverlay) {
+          pusterumOverlay.classList.remove("open");
+        }
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          pusterumOverlay.classList.remove("open");
+        }
+      });
+    </script>
+  </body>
+</html>
